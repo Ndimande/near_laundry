@@ -15,8 +15,9 @@ class _BaskeScreenState extends State<BasketScreen> {
   @override
   Widget build(BuildContext context) {
     Basket bst = Basket();
-
+    int length = bst.baskets.length;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -37,7 +38,7 @@ class _BaskeScreenState extends State<BasketScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   child: GridView.builder(
-                    itemCount: bst.baskets.length,
+                    itemCount: length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -54,7 +55,7 @@ class _BaskeScreenState extends State<BasketScreen> {
                       ),
                       child: Column(children: [
                         Container(
-                          height: 180,
+                          height: MediaQuery.of(context).size.height * 0.2,
                           width: 160,
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -64,27 +65,53 @@ class _BaskeScreenState extends State<BasketScreen> {
                             bst.baskets[index].imageUrl.toString(),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 25),
-                          child: Text(
-                            'Size : ' +
-                                bst.baskets[index].size.toString() +
-                                ' kg',
-                            style: const TextStyle(
-                                color: Colors.red,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 50),
-                          child: Text(
-                            'R' + bst.baskets[index].estimatedPrize.toString(),
-                            style: const TextStyle(
-                                color: Colors.green,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                'Prize : ',
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Text(
+                              'R' +
+                                  bst.baskets[index].estimatedPrize.toString(),
+                              style: const TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                'Size : ',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Text(
+                              bst.baskets[index].size.toString() + ' kg',
+                              style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ]),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:near_laundry/models/sign_up.dart';
 import 'package:near_laundry/models/user.dart';
 import 'package:near_laundry/providers/database_helper.dart';
@@ -224,10 +225,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Colors.lightBlue,
+                    fontStyle: FontStyle.italic,
+                    decoration: TextDecoration.underline,
                     fontSize: 30.0),
               ),
               const SizedBox(height: 10.0),
-              const Image(image: AssetImage('assets/images/login.png')),
+              Lottie.network(
+                'https://assets10.lottiefiles.com/packages/lf20_gn0tojcq.json',
+                fit: BoxFit.fill,
+              ),
               const SizedBox(height: 10.0),
               _userNameTextField(),
               _passwordTextField(),

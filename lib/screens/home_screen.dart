@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:near_laundry/models/booking.dart';
 import 'package:near_laundry/screens/login_screen.dart';
 import 'package:near_laundry/screens/registered_users_screen.dart';
 import 'package:near_laundry/screens/sliding_images_screen.dart';
+import 'package:near_laundry/widgets.dart/view_orders_widget.dart';
+import '../providers/database_helper.dart';
 import '../widgets.dart/navigation_drawer_widget.dart';
 import 'chat_screen.dart';
 import 'map_screen.dart';
@@ -37,6 +40,19 @@ class _HomeScreen extends State<HomeScreen> {
     setState(() {});
   }
 
+  void _getOrders() async {
+    List<Booking> bookings = await DatabaseHelper.instance.getAllBookings();
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ViewOrdersWidget(
+          list: bookings,
+        ),
+      ),
+    );
+    setState(() {});
+  }
+
   Widget _dotMenu() {
     return PopupMenuButton(
       icon: const Icon(Icons.more_vert),
@@ -52,13 +68,14 @@ class _HomeScreen extends State<HomeScreen> {
             onTap: _registeredUserScreen,
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           child: ListTile(
-            leading: Icon(
-              Icons.people_alt,
+            onTap: _getOrders,
+            leading: const Icon(
+              Icons.dock_rounded,
               color: Colors.cyan,
             ),
-            title: Text('Your Profile'),
+            title: const Text('Your Bookings'),
           ),
         ),
         PopupMenuItem(
@@ -148,8 +165,12 @@ class _HomeScreen extends State<HomeScreen> {
                   label: 'Contacts'),
             ],
           ),
-          body: Center(
-            child: _pages.elementAt(currentIdex), //New
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: _pages.elementAt(currentIdex), //New
+            ),
           ),
         ),
       );

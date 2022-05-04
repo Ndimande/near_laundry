@@ -35,6 +35,8 @@ dependencies:
   google_maps_flutter: ^2.1.3
   carousel_slider: 4.0.0
   smooth_page_indicator: ^0.3.0-nullsafety.0
+  flutter_picker: ^1.1.5
+  lottie: ^1.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -70,6 +72,7 @@ flutter:
     - assets/images/
     - assets/images/laundrys/
     - assets/images/baskets/
+    - assets/images/cts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

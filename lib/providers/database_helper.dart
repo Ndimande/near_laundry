@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:near_laundry/models/booking.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,6 +28,20 @@ class DatabaseHelper {
         password TEXT,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
       )
+        
+     ''');
+
+    await db.execute('''
+        CREATE TABLE booking(
+        id INTEGER PRIMARY KEY,
+        prize REAL,
+        busketSize INTEGER,
+        location INTEGER,
+        pickUpDate TEXT,
+        pickUpTime TEXT,
+        noOfBasket INTEGER,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+      )
      ''');
   }
 
@@ -38,9 +53,27 @@ class DatabaseHelper {
     return usersList;
   }
 
+  Future<List<Booking>> getAllBookings() async {
+    Database db = await instance.database;
+    var bookings = await db.query('booking', orderBy: 'createdAt');
+    List<Booking> bookingList = bookings.isNotEmpty
+        ? bookings.map((b) => Booking.fromMap(b)).toList()
+        : [];
+    return bookingList;
+  }
+
+//This delete is generic
   Future<void> delete(String table, int? id) async {
     Database db = await instance.database;
     await db.rawDelete('DELETE FROM $table WHERE id = $id');
+  }
+
+  Future<int> addBook(Booking book) async {
+    Database db = await instance.database;
+    return await db.insert(
+      'booking',
+      book.toMap(),
+    );
   }
 
   Future<int> add(SignUp user) async {

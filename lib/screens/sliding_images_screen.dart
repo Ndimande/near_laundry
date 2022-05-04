@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:lottie/lottie.dart';
 import 'package:near_laundry/models/basket.dart';
 import 'package:near_laundry/screens/basket_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -14,10 +16,10 @@ class SlidingImagesScreen extends StatefulWidget {
 class SlidingImageState extends State<SlidingImagesScreen> {
   int activeIndex = 0;
   final slidingLaundryPics = [
-    'assets/images/laundrys/laundry1.png',
-    'assets/images/laundrys/laundry2.png',
-    'assets/images/laundrys/laundry3.png',
-    'assets/images/laundrys/laundry4.png'
+    'https://assets8.lottiefiles.com/packages/lf20_5KG9yE.json',
+    'https://assets1.lottiefiles.com/packages/lf20_nkvngl3p.json',
+    'https://assets5.lottiefiles.com/packages/lf20_b4jgnk3h.json',
+    'https://assets10.lottiefiles.com/private_files/lf30_ecnepkno.json'
   ];
   final List<String> textToDisplay = [
     'Let get your clothes clean!',
@@ -26,58 +28,59 @@ class SlidingImageState extends State<SlidingImagesScreen> {
     'Let keep it clean and real'
   ];
   Widget slidingImages() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Center(
-            child: Text(
-              'MAKE YOUR BOOKING',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.purple,
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Center(
+          child: Text(
+            'MAKE YOUR BOOKING',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.purple,
+                fontSize: 20,
+                fontStyle: FontStyle.italic),
           ),
-          CarouselSlider.builder(
-            itemCount: slidingLaundryPics.length,
-            options: CarouselOptions(
-              height: 400,
-              autoPlay: true,
-              // enableInfiniteScroll: false,
-              enlargeCenterPage: true,
-              autoPlayInterval: const Duration(seconds: 2),
-              onPageChanged: (index, reason) {
-                setState(() => activeIndex = index);
-              },
-            ),
-            itemBuilder: (context, index, realIndex) {
-              final urlImage = slidingLaundryPics[index];
-              return buildImage(urlImage, index, textToDisplay);
+        ),
+        CarouselSlider.builder(
+          itemCount: slidingLaundryPics.length,
+          options: CarouselOptions(
+            height: MediaQuery.of(context).size.height * 0.55,
+            autoPlay: true,
+            enableInfiniteScroll: false,
+            //autoPlayCurve: true,
+            pageSnapping: true,
+            reverse: false,
+
+            autoPlayInterval: const Duration(seconds: 5),
+            onPageChanged: (index, reason) {
+              setState(() => activeIndex = index);
             },
           ),
-          const SizedBox(
-            height: 32,
-          ),
-          buildIndicator(),
-          const SizedBox(
-            height: 32,
-          ),
-          SizedBox(
-            height: 80,
-            width: 80,
-            child: FloatingActionButton(
-              backgroundColor: Colors.purple,
-              onPressed: _bookButton,
-              child: const Text(
-                'Book',
-                style: TextStyle(color: Colors.white),
-              ),
+          itemBuilder: (context, index, realIndex) {
+            final urlImage = slidingLaundryPics[index];
+            return buildImage(urlImage, index, textToDisplay);
+          },
+        ),
+        const SizedBox(
+          height: 32,
+        ),
+        buildIndicator(),
+        const SizedBox(
+          height: 32,
+        ),
+        SizedBox(
+          height: 80,
+          width: 80,
+          child: FloatingActionButton(
+            backgroundColor: Colors.purple,
+            onPressed: _bookButton,
+            child: const Text(
+              'Book',
+              style: TextStyle(color: Colors.white),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
@@ -92,23 +95,26 @@ class SlidingImageState extends State<SlidingImagesScreen> {
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
         count: slidingLaundryPics.length,
-        effect: const JumpingDotEffect(dotWidth: 20, dotHeight: 20),
+        effect: const JumpingDotEffect(dotWidth: 10, dotHeight: 10),
       );
 
   Widget buildImage(String urlImage, int index, textToDisplay) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       color: Colors.white,
       child: Column(children: [
         SizedBox(
-          height: 300,
-          child: Image.asset(
-            urlImage,
-            fit: BoxFit.cover,
+          height: MediaQuery.of(context).size.height * 0.45,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Lottie.network(
+              urlImage,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 50,
         ),
         Container(
           height: 20,
