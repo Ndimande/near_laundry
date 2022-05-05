@@ -15,11 +15,12 @@ class SlidingImagesScreen extends StatefulWidget {
 
 class SlidingImageState extends State<SlidingImagesScreen> {
   int activeIndex = 0;
+
   final slidingLaundryPics = [
-    'https://assets8.lottiefiles.com/packages/lf20_5KG9yE.json',
-    'https://assets1.lottiefiles.com/packages/lf20_nkvngl3p.json',
-    'https://assets5.lottiefiles.com/packages/lf20_b4jgnk3h.json',
-    'https://assets10.lottiefiles.com/private_files/lf30_ecnepkno.json'
+    'assets/images/animations/17971-hand-washing.json',
+    'assets/images/animations/64579-washing-machine.json',
+    'assets/images/animations/97387-digital-designer.json',
+    'assets/images/animations/89833-laundry.json'
   ];
   final List<String> textToDisplay = [
     'Let get your clothes clean!',
@@ -44,12 +45,12 @@ class SlidingImageState extends State<SlidingImagesScreen> {
         CarouselSlider.builder(
           itemCount: slidingLaundryPics.length,
           options: CarouselOptions(
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: MediaQuery.of(context).size.height * 0.45,
             autoPlay: true,
             enableInfiniteScroll: false,
             //autoPlayCurve: true,
-            pageSnapping: true,
-            reverse: false,
+            // pageSnapping: true,
+            // reverse: false,
 
             autoPlayInterval: const Duration(seconds: 5),
             onPageChanged: (index, reason) {
@@ -61,16 +62,14 @@ class SlidingImageState extends State<SlidingImagesScreen> {
             return buildImage(urlImage, index, textToDisplay);
           },
         ),
-        const SizedBox(
-          height: 32,
-        ),
         buildIndicator(),
-        const SizedBox(
-          height: 32,
+        Lottie.asset(
+          'assets/images/animations/30718-water-splash-effect.json',
+          fit: BoxFit.cover,
         ),
         SizedBox(
-          height: 80,
-          width: 80,
+          height: 50,
+          width: 50,
           child: FloatingActionButton(
             backgroundColor: Colors.purple,
             onPressed: _bookButton,
@@ -104,20 +103,17 @@ class SlidingImageState extends State<SlidingImagesScreen> {
       color: Colors.white,
       child: Column(children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.45,
+          height: MediaQuery.of(context).size.height * 0.4,
           width: MediaQuery.of(context).size.width,
           child: Center(
-            child: Lottie.network(
+            child: Lottie.asset(
               urlImage,
               fit: BoxFit.fill,
             ),
           ),
         ),
-        const SizedBox(
-          height: 50,
-        ),
         Container(
-          height: 20,
+          height: 40,
           color: Colors.white,
           child: Text(
             textToDisplay[index],

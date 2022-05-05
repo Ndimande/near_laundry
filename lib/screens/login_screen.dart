@@ -230,10 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 30.0),
               ),
               const SizedBox(height: 10.0),
-              Lottie.network(
-                'https://assets10.lottiefiles.com/packages/lf20_gn0tojcq.json',
-                fit: BoxFit.fill,
-              ),
+              Lottie.asset('assets/images/animations/99745-sales-man.json',
+                  height: 200, fit: BoxFit.cover),
               const SizedBox(height: 10.0),
               _userNameTextField(),
               _passwordTextField(),

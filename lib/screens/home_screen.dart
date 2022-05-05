@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:near_laundry/models/booking.dart';
 import 'package:near_laundry/screens/login_screen.dart';
 import 'package:near_laundry/screens/registered_users_screen.dart';
