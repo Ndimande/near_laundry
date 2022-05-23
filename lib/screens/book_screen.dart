@@ -23,6 +23,7 @@ class _BookScreenState extends State<BookScreen> {
   DateTime datetime = DateTime.now();
   String time = 'Select time';
   int? count = 1;
+
   void checkout() {}
   var days = {
     1: 'Monday',
@@ -150,22 +151,26 @@ class _BookScreenState extends State<BookScreen> {
                 count,
             createdAt: DateTime.now()),
       );
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 2),
-        content: Center(
-          heightFactor: 2,
-          child: Text(
-            'Your order has been sent!',
-            style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+          content: Center(
+            heightFactor: 2,
+            child: Text(
+              'Your order has been sent!',
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
-      ));
+      );
+      Navigator.pop(context);
     } else {
+      datetime = DateTime.now();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.red,

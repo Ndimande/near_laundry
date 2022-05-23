@@ -11,7 +11,8 @@ import 'chat_screen.dart';
 import 'map_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  int? userId;
+  HomeScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -42,7 +43,8 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   void _getOrders() async {
-    List<Booking> bookings = await DatabaseHelper.instance.getAllBookings();
+    List<Booking> bookings =
+        await DatabaseHelper.instance.getBookingsByUserId(widget.userId);
     await Navigator.push(
       context,
       MaterialPageRoute(

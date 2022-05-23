@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
-class Booking {
+import 'package:flutter/foundation.dart';
+
+class Booking extends ChangeNotifier {
   final int? id;
   final double? prize;
   final int? busketSize;

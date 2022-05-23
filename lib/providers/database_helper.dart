@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:near_laundry/models/booking.dart';
+import 'package:near_laundry/models/user.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -31,6 +32,20 @@ class DatabaseHelper {
         
      ''');
 
+    await db.execute(''' 
+      CREATE TABLE admin(
+        id INTEGER PRIMARY KEY,
+        firstName TEXT,
+        lastName TEXT,
+        contact INTEGER,
+        email TEXT,
+        password TEXT,
+        company_name TEXT,
+        location TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+      )
+     ''');
+
     await db.execute('''
         CREATE TABLE booking(
         id INTEGER PRIMARY KEY,
@@ -40,7 +55,10 @@ class DatabaseHelper {
         pickUpDate TEXT,
         pickUpTime TEXT,
         noOfBasket INTEGER,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        user_id INTEGER, 
+        FOREIGN KEY (user_id) REFERENCES signup (id)
+       
       )
      ''');
   }
@@ -60,6 +78,23 @@ class DatabaseHelper {
         ? bookings.map((b) => Booking.fromMap(b)).toList()
         : [];
     return bookingList;
+  }
+
+  Future<List<Booking>> getBookingsByUserId(int? id) async {
+    Database db = await instance.database;
+    var bookings =
+        await db.query('booking', orderBy: 'createdAt', where: 'id = $id');
+    List<Booking> bookingList = bookings.isNotEmpty
+        ? bookings.map((b) => Booking.fromMap(b)).toList()
+        : [];
+    return bookingList;
+  }
+
+  Future<List<Map<String, dynamic>>> getLoggedInUserById(int? id) async {
+    Database db = await instance.database;
+    return await db.rawQuery(
+      'SELECT id from signup where id = $id',
+    );
   }
 
 //This delete is generic

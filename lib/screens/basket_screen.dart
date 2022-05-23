@@ -17,22 +17,21 @@ class _BaskeScreenState extends State<BasketScreen> {
     Basket bst = Basket();
     int length = bst.baskets.length;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: const Center(
+          child: Text(
+            'Choose your basket below',
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 155, 50, 137),
+      ),
       backgroundColor: Colors.white,
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-              child: Center(
-                child: Text(
-                  'Choose your basket below',
-                  style: TextStyle(
-                      color: Colors.purple,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

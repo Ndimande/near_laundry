@@ -103,14 +103,22 @@ class _LoginScreenState extends State<LoginScreen> {
     return false;
   }
 
+  int? getLoginUserId(List<SignUp> registeredUsers) {
+    for (final SignUp user in registeredUsers) {
+      return user.id;
+    }
+  }
+
   void _logIn() async {
     final List<SignUp> registeredUsers =
         await DatabaseHelper.instance.getRegisteredUsers();
+    List<Map<String, dynamic>> usersId = await DatabaseHelper.instance
+        .getLoggedInUserById(getLoginUserId(registeredUsers));
     isUserRegisteredInDB(registeredUsers)
         ? await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => const HomeScreen(),
+              builder: (_) => HomeScreen(usersId.single.values.first),
             ),
           )
         : ScaffoldMessenger.of(context).showSnackBar(
