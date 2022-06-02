@@ -7,7 +7,8 @@ import 'package:near_laundry/screens/basket_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SlidingImagesScreen extends StatefulWidget {
-  const SlidingImagesScreen({Key? key}) : super(key: key);
+  int? userId;
+  SlidingImagesScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<SlidingImagesScreen> createState() => SlidingImageState();
@@ -32,16 +33,16 @@ class SlidingImageState extends State<SlidingImagesScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Center(
-          child: Text(
-            'MAKE YOUR BOOKING',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.purple,
-                fontSize: 20,
-                fontStyle: FontStyle.italic),
-          ),
-        ),
+        // const Center(
+        //   child: Text(
+        //     'MAKE YOUR BOOKING',
+        //     style: TextStyle(
+        //         fontWeight: FontWeight.bold,
+        //         color: Colors.purple,
+        //         fontSize: 20,
+        //         fontStyle: FontStyle.italic),
+        //   ),
+        // ),
         CarouselSlider.builder(
           itemCount: slidingLaundryPics.length,
           options: CarouselOptions(
@@ -87,7 +88,7 @@ class SlidingImageState extends State<SlidingImagesScreen> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => const BasketScreen(),
+          builder: (_) => BasketScreen(widget.userId),
         ));
   }
 

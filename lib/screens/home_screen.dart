@@ -105,76 +105,78 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  final List<Widget> _pages = <Widget>[
-    const SlidingImagesScreen(),
-    const MapScreen(),
-    const ChatScreen(),
-    const Center(child: Text('Contacts')),
-  ];
   @override
-  Widget build(BuildContext context) => DefaultTabController(
-        length: 4,
-        child: Scaffold(
-          drawer: const NavigationDrawerWidget(),
-          appBar: AppBar(
-            elevation: 0,
-            title: const Center(child: Text('')),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _dotMenu(),
-              ),
-            ],
-            backgroundColor: const Color.fromARGB(255, 155, 50, 137),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 9,
-            currentIndex: currentIdex,
-            type: BottomNavigationBarType.shifting,
-            onTap: (newValue) {
-              setState(() {
-                currentIdex = newValue;
-              });
-            },
-            selectedItemColor: Colors.purple,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: Colors.black,
-                  ),
-                  tooltip: 'Book for your laundry here!',
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.drive_eta_rounded,
-                    color: Colors.black,
-                  ),
-                  tooltip: 'Track your driver!',
-                  label: 'Track Driver'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.chat_bubble,
-                    color: Colors.black,
-                  ),
-                  tooltip: 'Chat with admin!',
-                  label: 'Chats'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.phone,
-                    color: Colors.black,
-                  ),
-                  tooltip: 'Contact us!',
-                  label: 'Contacts'),
-            ],
-          ),
-          body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Center(
-              child: _pages.elementAt(currentIdex), //New
+  Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      SlidingImagesScreen(widget.userId),
+      const MapScreen(),
+      const ChatScreen(),
+      const Center(child: Text('Contacts')),
+    ];
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        drawer: const NavigationDrawerWidget(),
+        appBar: AppBar(
+          elevation: 0,
+          title: const Center(child: Text('')),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _dotMenu(),
             ),
+          ],
+          backgroundColor: const Color.fromARGB(255, 155, 50, 137),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 9,
+          currentIndex: currentIdex,
+          type: BottomNavigationBarType.shifting,
+          onTap: (newValue) {
+            setState(() {
+              currentIdex = newValue;
+            });
+          },
+          selectedItemColor: Colors.purple,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ),
+                tooltip: 'Book for your laundry here!',
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.drive_eta_rounded,
+                  color: Colors.black,
+                ),
+                tooltip: 'Track your driver!',
+                label: 'Track Driver'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.chat_bubble,
+                  color: Colors.black,
+                ),
+                tooltip: 'Chat with admin!',
+                label: 'Chats'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.phone,
+                  color: Colors.black,
+                ),
+                tooltip: 'Contact us!',
+                label: 'Contacts'),
+          ],
+        ),
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: _pages.elementAt(currentIdex), //New
           ),
         ),
-      );
+      ),
+    );
+  }
 }

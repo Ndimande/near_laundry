@@ -5,7 +5,8 @@ import 'package:near_laundry/screens/book_screen.dart';
 import 'package:near_laundry/screens/home_screen.dart';
 
 class BasketScreen extends StatefulWidget {
-  const BasketScreen({Key? key}) : super(key: key);
+  int? userId;
+  BasketScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<BasketScreen> createState() => _BaskeScreenState();
@@ -48,6 +49,7 @@ class _BaskeScreenState extends State<BasketScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (_) => BookScreen(
+                            widget.userId,
                             selectedBasketId: bst.baskets[index].id as int,
                           ),
                         ),

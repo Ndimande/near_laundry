@@ -11,8 +11,9 @@ import '../providers/database_helper.dart';
 import '../widgets.dart/bottom_picker.dart';
 
 class BookScreen extends StatefulWidget {
+  int? userId;
   final int selectedBasketId;
-  const BookScreen({Key? key, required this.selectedBasketId})
+  BookScreen(this.userId, {Key? key, required this.selectedBasketId})
       : super(key: key);
 
   @override
@@ -142,7 +143,7 @@ class _BookScreenState extends State<BookScreen> {
     if (isTimeSelected(time) == true && isDateSelected(datetime) == true) {
       await DatabaseHelper.instance.addBook(
         Booking(
-            userId: 1, //Need to find a way to parse the user Id
+            userId: widget.userId, //Need to find a way to parse the user Id
             busketSize: bst.baskets[widget.selectedBasketId - 1].size! * count,
             location: 'Centurion',
             noOfBasket: count.toString(),
