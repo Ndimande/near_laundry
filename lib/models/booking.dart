@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 
 class Booking extends ChangeNotifier {
@@ -11,9 +9,11 @@ class Booking extends ChangeNotifier {
   final String? pickUpTime;
   final String? noOfBasket;
   final DateTime? createdAt;
+  final int? userId;
 
   Booking(
       {this.id,
+      this.userId,
       this.busketSize,
       this.location,
       this.noOfBasket,
@@ -29,6 +29,7 @@ class Booking extends ChangeNotifier {
       noOfBasket: map["noOfBasket"].toString(),
       pickUpDate: map["pickUpDate"],
       pickUpTime: map["pickUpTime"],
+      userId: map["userId"],
       prize: map["prize"],
       createdAt: DateTime.parse(map['createdAt'] as String),
     );
@@ -41,6 +42,7 @@ class Booking extends ChangeNotifier {
       'pickUpDate': pickUpDate,
       'pickUpTime': pickUpTime,
       'prize': prize,
+      'userId': userId,
     };
   }
 
@@ -53,6 +55,7 @@ class Booking extends ChangeNotifier {
       'pickUpDate': pickUpDate,
       'pickUpTime': pickUpTime,
       'prize': prize,
+      'userId': userId,
       'createdAt': createdAt?.toIso8601String(),
     };
   }

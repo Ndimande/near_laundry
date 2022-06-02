@@ -142,6 +142,7 @@ class _BookScreenState extends State<BookScreen> {
     if (isTimeSelected(time) == true && isDateSelected(datetime) == true) {
       await DatabaseHelper.instance.addBook(
         Booking(
+            userId: 1, //Need to find a way to parse the user Id
             busketSize: bst.baskets[widget.selectedBasketId - 1].size! * count,
             location: 'Centurion',
             noOfBasket: count.toString(),

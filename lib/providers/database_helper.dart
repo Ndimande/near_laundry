@@ -14,6 +14,7 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
+    print('db location : ' + documentDirectory.path);
     String path = join(documentDirectory.path, 'laundry.db');
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
@@ -56,8 +57,8 @@ class DatabaseHelper {
         pickUpTime TEXT,
         noOfBasket INTEGER,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        user_id INTEGER, 
-        FOREIGN KEY (user_id) REFERENCES signup (id)
+        userId INTEGER, 
+        FOREIGN KEY (userId) REFERENCES signup (id)
        
       )
      ''');
@@ -83,7 +84,7 @@ class DatabaseHelper {
   Future<List<Booking>> getBookingsByUserId(int? id) async {
     Database db = await instance.database;
     var bookings =
-        await db.query('booking', orderBy: 'createdAt', where: 'id = $id');
+        await db.query('booking', orderBy: 'createdAt', where: 'userId = $id');
     List<Booking> bookingList = bookings.isNotEmpty
         ? bookings.map((b) => Booking.fromMap(b)).toList()
         : [];
