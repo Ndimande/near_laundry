@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordControler = TextEditingController();
   String? _userName;
   String? _password;
+  int? _userId;
 
   bool _isAllFieldsValid() {
     if (_userNameControler.text.isEmpty) {
@@ -97,28 +98,24 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isUserRegisteredInDB(List<SignUp> registeredUsers) {
     for (final SignUp user in registeredUsers) {
       if (user.email == _userName && user.password == _password) {
+        _userId = user.id;
         return true;
       }
     }
     return false;
   }
 
-  int? getLoginUserId(List<SignUp> registeredUsers) {
-    for (final SignUp user in registeredUsers) {
-      return user.id;
-    }
-  }
-
   void _logIn() async {
     final List<SignUp> registeredUsers =
         await DatabaseHelper.instance.getRegisteredUsers();
-    List<Map<String, dynamic>> usersId = await DatabaseHelper.instance
-        .getLoggedInUserById(getLoginUserId(registeredUsers));
+    // List<Map<String, dynamic>> usersId = await DatabaseHelper.instance
+    //     .getLoggedInUserById(getLoginUserId(registeredUsers));
     isUserRegisteredInDB(registeredUsers)
         ? await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => HomeScreen(usersId.single.values.first),
+              builder: (_) => HomeScreen(
+                  _userId), // This always take the first user ID from the database list, need to fix this and use the logged in user id
             ),
           )
         : ScaffoldMessenger.of(context).showSnackBar(

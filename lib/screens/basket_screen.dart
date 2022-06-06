@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:near_laundry/models/basket.dart';
 import 'package:near_laundry/screens/book_screen.dart';
-import 'package:near_laundry/screens/home_screen.dart';
 
 class BasketScreen extends StatefulWidget {
   int? userId;
@@ -19,6 +17,7 @@ class _BaskeScreenState extends State<BasketScreen> {
     int length = bst.baskets.length;
     return Scaffold(
       appBar: AppBar(
+        shadowColor: Colors.lightBlue,
         elevation: 0,
         title: const Center(
           child: Text(
